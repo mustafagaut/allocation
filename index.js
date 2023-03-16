@@ -440,7 +440,7 @@ app.get("/print2", async (req, res) => {
   }
 })
 
-mongoose.connect("mongodb+srv://ras:ras@cluster0.cdnkd3q.mongodb.net/ramzan?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("db connected");
   })
