@@ -95,7 +95,7 @@
                 </form>
 
 
-                <table class="table" border="1px">
+                <table class="table table-responsive table-striped overfow-auto" border="1px">
 
                     <tr>
                         <th>
@@ -139,11 +139,7 @@
                             <button class="btn btn-success"
                                 onclick="fun({{this.its_id}},document.getElementById('{{this.its_id}}').value)">Save</button>
                         </td>
-                        <td id="print" >
-                            <a id="me" onClick="print({{its_id}},document.getElementById('{{this.its_id}}').value)" class="btn btn-info">
-                                print
-                            </button>
-                        </td>
+                       
                     </tr>
 
 
@@ -191,11 +187,7 @@
         console.log(id, value);
     }
 
-    function print(its_id,id){
-        console.log(its_id,id)
-        var print = document.getElementById('me');
-        print.setAttribute('href', `/print1?its=${its_id}&id=${id}`);
-    }
+   
 </script>
 
 

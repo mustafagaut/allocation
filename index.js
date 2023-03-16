@@ -222,11 +222,12 @@ app.post('/admin/panel', async (req, res) => {
     res.redirect('/login');
   } else {
     let arr = req.body.its.split("\r\n");
+    console.log(arr,"array");
     let data = [];
     let users = schema.users;
     for (let i = 0; i < arr.length; i++) {
       if (arr[i] !== "") {
-        let user = await users.find({
+        let user = await users.findOne({
           ITS_ID: arr[i]
         });
         if (user) {
@@ -239,14 +240,14 @@ app.post('/admin/panel', async (req, res) => {
     let event = await events.find({
       available: true
     })
+    console.log(data.length,"here");
 
-
-    if (data.length !== 0) {
-
-      res.render('adminpanel', { message: read_users(data, event), layout: false });
+    if (data.length==0) {
+      res.render('adminpanel', { message: [], layout: false });
+      
     }
     else {
-      res.render('adminpanel', { message: [], layout: false });
+      res.render('adminpanel', { message: read_users(data, event), layout: false });
     }
   }
 })
@@ -256,8 +257,8 @@ function read_users(data, event) {
   let e = read_event(event);
   console.log(data.length);
   for (let i = 0; i < data.length; i++) {
-    console.log(data[i][0].Age, "here")
-    poems_dict.push({ 'name': data[i][0].Full_Name, 'its_id': data[i][0].ITS_ID, mobile: data[i][0].Mobile, misaq: data[i][0].Misaq, age: data[i][0].Age, noc: data[i][0].NOC, 'events': e });
+    
+    poems_dict.push({ 'name': data[i].Full_Name, 'its_id': data[i].ITS_ID, mobile: data[i].Mobile, misaq: data[i].Misaq, age: data[i].Age, noc: data[i].NOC, 'events': e });
   }
 
 
