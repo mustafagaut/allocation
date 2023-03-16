@@ -59,7 +59,7 @@ app.get('/home', async (req, res) => {
     let user = await users.findOne({
       its_id: username
     });
-    console.log(user, "hi");
+    
     res.render('home', { message: user, layout: false });
   }
   else {
@@ -133,8 +133,8 @@ app.post('/login', async (req, res) => {
         }
         data.push(data1);
       }
-      console.log(data);
-      res.render('home', { message: read_user(user), data: data, layout: false });
+      console.log("start",data,"hello");
+      res.render('home', { message: user[0].Allocated, data: data, layout: false,its:user[0].ITS_ID});
     }
     else
       res.render('login', { message: 'You are not eligible for azaan/taqbirah contact admin', layout: false });
@@ -168,10 +168,10 @@ const read_user = (data) => {
 
   poems_dict = [];
 
-  console.log(data.length);
+  console.log(data);
   for (let i = 0; i < data.length; i++) {
-
-    poems_dict.push({ 'name': data[i].name, 'its_id': data[i].its_id, mobile: data[i].mobile });
+    console.log("hi mustafa")
+    poems_dict.push({ 'name': data[i].Full_Name, 'its_id': data[i].ITS_ID, mobile: data[i].Mobile,allocated:data[i].Allocated});
   }
 
 
@@ -301,7 +301,7 @@ app.post("/allocate", async (req, res) => {
       date: ev[0].event
     });
     let users = schema.users;
-    let user = await users.findOneAndUpdate({ ITS_ID: its_id }, { NOC: true, Allocated: true });
+    let user = await users.findOneAndUpdate({ ITS_ID: its_id }, { NOC: true });
 
     let event = await events.findByIdAndUpdate(event_id, { available: false });
     res.status(200).json({
@@ -440,7 +440,21 @@ app.get("/print2", async (req, res) => {
     res.render('print', { user: data, layout: false });
   }
 })
+app.get('/allow',async(req,res)=>{
+  console.log(req.query)
+  let users = schema.users;
+  let allocate=await users.findOneAndUpdate({
+    ITS_ID:req.query.its_id
+  },{
+    Allocated:true
+  }
+  );
+  res.status(200).json({
+    success:true,
+    message:"allocated"
+  })
 
+})
 mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("db connected");

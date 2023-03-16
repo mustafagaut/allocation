@@ -5,7 +5,7 @@
 
   <title>Sherullah Il Moazzam 1444H</title>
   <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -93,9 +93,26 @@
 
 
   <br><br>
-  <h1>Allocation List</h1>
+  
+ 
 
+  <div id="eligible">
+    <div  class="d-flex justify-content-center flex-column align-items-center w-100">
+    <h1>You are elgible for Azaan/Takbirah Raza</h1>
+    <div>
+
+      <button class="btn btn-success" id="alloclk" >Allocate</button>
+    </div>
+  </div>
+  </div>
+<div id="allocate">
+    <div class="d-flex justify-content-center flex-column  align-items-center w-100">
+    <h1>Mubarak Mohanna Your Raza for Azaan/Takbirah has been Allocated</h1>
+    <h1>Your Allocation List</h1>
+
+  </div>
   <div class="d-flex justify-content-center align-item-center">
+
 
     <table border="1px" class="table table-striped table-responsive">
       <tr>
@@ -119,12 +136,44 @@
 
 
   </div>
- 
+</div>
+
 </body>
 <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
   crossorigin="anonymous"></script>
 <script>
+  $(document).ready(function(){
+    $("#eligible").hide();
+    $("#allocate").hide();
+    if( {{message}}){
+      $("#allocate").show();
+    }
+    else{
+      $("#eligible").show();
+    }
+  $("#alloclk").on("click",function(){
+        $.ajax({
+            type:"GET",
+            url: "/allow",
+            dataType: "json",
+            async: true,
+            cache: false,
+            data: {
+                its_id:{{its}}
+            },
+            success: function (data, status) {
+                if(data.success==false){
+                    alert(data.error);
+                }else{
+                alert("Raza Allocated");
+                
+                window.location.reload();
+                }
+            }   
+        }) 
+  })
 
+})  
 </script>
 
 </html>
