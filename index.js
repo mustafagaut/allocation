@@ -15,6 +15,7 @@ const app = express();
 
 app.engine('handlebars', exphbs.engine());
 app.set('view engine', 'handlebars');
+app.set('views',__dirname+'/views');
 
 app.use(express.static(path.join(__dirname, 'images')));
 app.use(bodyParser.json());
@@ -32,16 +33,16 @@ app.use(session({
 app.use(cookieParser());
 
 
-function read_poems() {
-  var data = fs.readFileSync("allocation.json");
-  poems_dict = [];
-  const poems = JSON.parse(data);
-  for (var i = 0; i < poems.length; i++) {
-    poems_dict.push({ 'key': poems[i].title, 'value': poems[i].value });
-  }
+// function read_poems() {
+//   var data = fs.readFileSync("allocation.json");
+//   poems_dict = [];
+//   const poems = JSON.parse(data);
+//   for (var i = 0; i < poems.length; i++) {
+//     poems_dict.push({ 'key': poems[i].title, 'value': poems[i].value });
+//   }
 
-  return poems_dict;
-}
+//   return poems_dict;
+// }
 
 
 
@@ -59,7 +60,7 @@ app.get('/home', async (req, res) => {
       its_id: username
     });
     console.log(user, "hi");
-    res.render('home', { message: user, poems: read_poems(), layout: false });
+    res.render('home', { message: user, layout: false });
   }
   else {
     res.render('index', { message: '', layout: false });
