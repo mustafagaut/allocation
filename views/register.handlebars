@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>Poems</title>
+    <style>
+        body {
+          background-image: url('background.jpg');
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+           background-size: 100% 100%;
+        }
+        .text{
+            font-size: 20px;
+            font-weight: bold;
+            color: red;
+            text-align: right;
+        }
+        .text2{
+            font-size: 20px;
+            font-weight: bold;
+            color: red;
+            text-align: center;
+        }
+        .text1{
+            font-size: 20px;
+            font-weight: bold;
+            color: red;
+            text-align: center;
+        }
+        .box{
+            border-width: 3px solid;
+            width: 300px;
+            height: 340px;
+            border: double black;
+            
+        }
+        </style>
+  </head>
+  <body>
+    
+       {{> header}}
+    
+    <center>
+    <div class ="box">
+  
+      
+	<form action="/addUser" method="post">
+  	<br>
+  	&nbsp;&nbsp;&nbsp;<input type="email" name="username" style="font-size:16pt;height:30px" placeholder="Email"  required><br>
+  	<br>
+  	&nbsp;&nbsp;&nbsp;<input type="password" name="Password" style="font-size:16pt;height:30px" placeholder="Password"  required><br>
+  	<br>
+  	&nbsp;&nbsp;&nbsp;<input type="password" name="confirm" style="font-size:16pt;height:30px" placeholder="Confirm Password"  required><br><br><br>
+
+  	<center><input type="submit"  style="font-size:20px;width: 270px; height: 50px; color:white;background-color:blue" value="Submit"></center>
+    <h3 style="color:red;"> {{message}} </h3> 
+</form>
+</div>
+</center>
+<a href="/login"><p class = "text2">Sign In </p></a>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>Allocation</title>
+    <style>
+        body {
+          background-image: url('../background.jpg');
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+           background-size: 100% 100%;
+        }
+        .text{
+            font-size: 20px;
+            font-weight: bold;
+            color: red;
+            text-align: right;
+        }
+        .text1{
+            font-size: 20px;
+            font-weight: bold;
+            color: red;
+            text-align: center;
+        }
+        .box{
+            border-width: 3px solid;
+            width: 300px;
+            height: 340px;
+            border: double black;
+            
+        }
+        </style>
+  </head>
+  <body>
+    
+     {{> header}}<br><br>
+     Admin Panel
+    <center>
+    <div class ="box">
+  
+
+	<form action="/admin/login" method="post">
+  	<br>
+  	&nbsp;&nbsp;&nbsp;<input type="text" name="its" style="font-size:16pt;height:30px" placeholder="username"  required><br><br>
+  	<br>
+  	&nbsp;&nbsp;&nbsp;<input type="text" name="sabeel" style="font-size:16pt;height:30px" placeholder="password"  required><br><br><br><br>
+
+  	<center><input type="submit"  style="font-size:20px;width: 270px; height: 50px; color:white;background-color:blue" value="Submit"></center>
+      <a href="/register"><p class = "text1">Register </p></a>
+      <h3 style="color:red;"> {{message}} </h3>
+</form>
+</div>
+</center>
+  </body>
+</html>
