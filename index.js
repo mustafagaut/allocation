@@ -346,6 +346,32 @@ app.get('/admin/list', async (req, res) => {
     res.render("razalist", { data: data, layout: false });
   }
 })
+app.get('/razalist',async(req,res)=>{
+  let allocation = schema.allocation;
+    let list = await allocation.find({}).sort({serial:1});
+    let data = [];
+    let users = schema.users;
+    for (let i = 0; i < list.length; i++) {
+      let user = await users.findOne({
+        ITS_ID: list[i].its_id
+      });
+      if (!user) {
+        res.render("razalist", { data: [], layout: false });
+      }
+      let list1 = {
+        "id": list[i]._id,
+        "its_id": list[i].its_id,
+        "date": list[i].date,
+        "name": user.Full_Name,
+        "mobile": user.Mobile
+      }
+      data.push(list1);
+
+
+    }
+    res.render("listraza", { data: data, layout: false });
+  }
+)
 
 
 app.get("/delete", async (req, res) => {
