@@ -281,10 +281,11 @@ app.post("/allocate", async (req, res) => {
   let ev = await events.find({
     _id: event_id
   })
-  console.log(event_id);
+  
   if (ev.length == 0) {
     console.log("empty");
     res.status(200).json({
+      success:false,
       message: "empty"
     })
   }
@@ -298,7 +299,8 @@ app.post("/allocate", async (req, res) => {
 
     let allocate = await allocation.create({
       its_id: its_id,
-      date: ev[0].event
+      date: ev[0].event,
+      serial:ev[0].serial
     });
     let users = schema.users;
     let user = await users.findOneAndUpdate({ ITS_ID: its_id }, { NOC: true });
@@ -320,7 +322,7 @@ app.get('/admin/list', async (req, res) => {
   } else {
 
     let allocation = schema.allocation;
-    let list = await allocation.find({});
+    let list = await allocation.find({}).sort({serial:1});
     let data = [];
     let users = schema.users;
     for (let i = 0; i < list.length; i++) {
@@ -455,6 +457,28 @@ app.get('/allow',async(req,res)=>{
   })
 
 })
+app.get('/sort',async(req,res)=>{
+  let event = schema.events;
+  
+  let eve=(await event.find({})).forEach(async(data) =>{
+    await event.updateOne({
+        "_id": data._id,
+        "event": data.event,
+        "available":data.available,
+    }, {
+        "$set": {
+            "serial": parseInt(data.serial)
+        }
+    });
+})
+console.log(eve);
+res.status(200).json({
+  success:true,
+
+})
+})
+
+// db.student.find().sort({age:-1})
 mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("db connected");
