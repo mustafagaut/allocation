@@ -137,7 +137,7 @@ app.post('/login', async (req, res) => {
       res.render('home', { message: user[0].Allocated, data: data, layout: false,its:user[0].ITS_ID});
     }
     else
-      res.render('login', { message: 'You are not eligible for azaan/taqbirah contact admin', layout: false });
+      res.render('login', { message: 'You are not Register for azaan/taqbirah Contact Admin for further query', layout: false });
   }
 
 
@@ -385,9 +385,13 @@ app.get("/delete", async (req, res) => {
   let dlt = await allocation.findOneAndDelete({
     _id: all_id,
   });
-
-  let users = schema.users;
-  let updateUser = await users.findOneAndUpdate({ ITS_ID: its_id }, { NOC: false, Allocated: false });
+  let check=await allocate.find({
+    _id: all_id,
+  })
+  if(check.length==0){
+    let users = schema.users;
+    let updateUser = await users.findOneAndUpdate({ ITS_ID: its_id }, { NOC: false, Allocated: false });
+  }
   let events = schema.events;
   let upeve = await events.findOneAndUpdate({ event: all.date }, { available: true })
   res.status(200).json(
