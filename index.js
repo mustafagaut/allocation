@@ -164,6 +164,30 @@ app.post('/login', async (req, res) => {
 
 
 });
+
+app.get('/update',(req,res)=>{
+  if (req.session.user === undefined) {
+    res.redirect("/login")
+  }
+  else if (req.session.user.Mobile !== "admin") {
+    res.redirect('/login');
+  } else {
+  res.render('update', { message: '',name:"", layout: false });
+  }
+})
+
+app.post('/update',async(req,res)=>{
+  const ITS_ID=req.body.its;
+  let users = schema.users;
+  let user = await users.findOne({
+    ITS_ID: ITS_ID,
+  });
+  
+  res.render('update', { message: '',its:user.ITS_ID,name:user.Full_Name, layout: false });
+})
+
+
+
 const read_user = (data) => {
 
   poems_dict = [];
@@ -273,6 +297,36 @@ function read_event(data) {
   }
   return event_dict;
 }
+
+app.post("/change/password",async(req,res)=>{
+  const ITS_ID=req.body.its;
+  const TanzeemFile_No=req.body.password;
+  let users = schema.users;
+  let user = await users.findOneAndUpdate({
+    ITS_ID: ITS_ID,
+  },{
+    TanzeemFile_No:TanzeemFile_No
+  }
+  
+  
+)
+if(user){
+  res.render('adminpanel', { message: "hello admin", layout: false });
+}else
+res.status(200).json({success:false,message:"user not found"});
+
+})
+
+app.get("/register",(req,res)=>{
+  if (req.session.user === undefined) {
+    res.redirect("/login")
+  }
+  else if (req.session.user.Mobile !== "admin") {
+    res.redirect('/login');
+  } else {
+  req.render("register",{message:"",layout:false})
+  }
+})
 
 app.post("/allocate", async (req, res) => {
   const its_id = req.body.its_id;
@@ -385,7 +439,7 @@ app.get("/delete", async (req, res) => {
   let dlt = await allocation.findOneAndDelete({
     _id: all_id,
   });
-  let check=await allocate.find({
+  let check=await allocation.find({
     _id: all_id,
   })
   if(check.length==0){

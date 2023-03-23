@@ -42,21 +42,41 @@
      {{> header}}<br><br>
     
     <center>
-        <h1 class="text-success"> Admin Panel</h1>
-    <div class ="box">
+        <h1 class="text-success"> Update User</h1>
+    <div class ="container">
   
 
-	<form action="/admin/login" method="post">
+	<form action="/update" method="post" id="btn">
   	<br>
-  	&nbsp;&nbsp;&nbsp;<input type="text" name="its" style="font-size:16pt;height:30px" placeholder="username"  required><br><br>
+  	&nbsp;&nbsp;&nbsp;<input type="text" name="its" style="font-size:16pt;height:30px" placeholder="User ITS ID"  required><br><br>
   	<br>
-  	&nbsp;&nbsp;&nbsp;<input type="text" name="sabeel" style="font-size:16pt;height:30px" placeholder="password"  required><br><br><br><br>
-
-  	<center><input type="submit"  style="font-size:20px;width: 270px; height: 50px; color:white;background-color:blue" value="Submit"></center>
+  	
+  	<center><input type="submit"    style="font-size:20px;width: 270px; height: 50px; color:white;background-color:blue"  value="Submit"></center>
       
-      <h3 style="color:red;"> {{message}} </h3>
+    
+     
+
 </form>
+ <form class="form" id="show" action="/change/password" method="post">
+   <p class="text-success"> {{name}} </p>
+      <input class="m-2" style="font-size:16pt;height:30px" type="password" placeholder="Change password" name="password">
+        	<center><input  type="submit"  class="btn btn-warning mt-4"  value="Update Password"></center>
+        <input type="hidden" name="its" value="{{its}}">
+
+      </form>
 </div>
 </center>
   </body>
+  <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+    $("#show").hide();
+    const val="{{name}}"
+    if(val!==""){
+        $("#show").show();
+        $("#btn").hide();
+    }
+    });
+</script>
 </html>
