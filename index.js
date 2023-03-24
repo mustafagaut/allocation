@@ -112,8 +112,9 @@ app.post('/login', async (req, res) => {
   });
   console.log(user);
   if (user.length == 0) {
-    res.render('login', { message: 'Not a registered username', layout: false });
-  }
+    res.render('login', { message: 'ITS _ID not Registered Contact Admin', layout: false });
+  }else
+  {
   if (user[0].TanzeemFile_No !== password) {
     res.render('login', { message: 'Invalid Password', layout: false });
   }
@@ -137,7 +138,7 @@ app.post('/login', async (req, res) => {
       res.render('home', { message: user[0].Allocated, data: data, layout: false,its:user[0].ITS_ID});
     }
     else
-      res.render('login', { message: 'You are not Register for azaan/taqbirah Contact Admin for further query', layout: false });
+      res.render('login', { message: 'You are not Register for Azaan/Taqbirah Contact Admin for further query', layout: false });
   }
 
 
@@ -163,6 +164,7 @@ app.post('/login', async (req, res) => {
 
 
 
+}
 });
 
 app.get('/update',(req,res)=>{
