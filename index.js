@@ -142,7 +142,9 @@ app.post('/login', async (req, res) => {
   }
 
 
+
   // var data = fs.readFileSync("users.json");
+//addedd
   // var myObject = JSON.parse(data);
   // var userflag =0;
   // for (const [key, value] of Object.entries(myObject)) {
