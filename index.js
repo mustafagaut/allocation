@@ -254,8 +254,27 @@ app.post('/admin/panel', async (req, res) => {
         let user = await users.findOne({
           ITS_ID: arr[i]
         });
+        let allocate=schema.allocation;
+       
+        
         if (user) {
-          data.push(user);
+          let all=await allocate.find({
+            its_id: arr[i]
+          });
+          if(all.length>0){
+            let object={
+              allocated:all,
+              user:user
+            }
+            data.push(object)
+          }else
+          {
+            let object={
+              allocated:[],
+              user:user
+            }
+            data.push(object)
+          }
         }
       }
     }
@@ -264,7 +283,7 @@ app.post('/admin/panel', async (req, res) => {
     let event = await events.find({
       available: true
     })
-    console.log(data.length,"here");
+   
 
     if (data.length==0) {
       res.render('adminpanel', { message: [], layout: false });
@@ -279,10 +298,14 @@ function read_users(data, event) {
 
   poems_dict = [];
   let e = read_event(event);
+  
   console.log(data.length);
   for (let i = 0; i < data.length; i++) {
-    
-    poems_dict.push({ 'name': data[i].Full_Name, 'its_id': data[i].ITS_ID, mobile: data[i].Mobile, misaq: data[i].Misaq, age: data[i].Age, noc: data[i].NOC, 'events': e });
+    let all=[];
+    if(data[i].allocated.length>=0){
+    all=read_all(data[i]['allocated']);
+  }
+    poems_dict.push({ 'name': data[i]['user'].Full_Name, 'its_id': data[i]['user'].ITS_ID, mobile: data[i]['user'].Mobile, misaq: data[i]['user'].Misaq, age: data[i]['user'].Age, noc: data[i]['user'].NOC, 'events': e,allocated:all,already:all.length });
   }
 
 
@@ -293,6 +316,15 @@ function read_event(data) {
   event_dict = [];
   for (let j = 0; j < data.length; j++) {
     event_dict.push({ 'event': data[j].event, 'id': data[j].id });
+
+  }
+  return event_dict;
+}
+function read_all(data) {
+
+  event_dict = [];
+  for (let j = 0; j < data.length; j++) {
+    event_dict.push({ 'event': data[j].date, 'id': data[j].id });
 
   }
   return event_dict;
