@@ -10,41 +10,52 @@
     crossorigin="anonymous"></script>
 	<title>Allocation</title>
     <style>
-        body {
-          background-image: url('../background.jpg');
-          background-repeat: no-repeat;
-          background-attachment: fixed;
-           background-size: 100% 100%;
+       .vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+       
+       
+        @media screen and (max-height: 500px) {
+            footer{
+                display: none !important;
+            }
         }
-        .text{
-            font-size: 20px;
-            font-weight: bold;
-            color: red;
-            text-align: right;
-        }
-        .text1{
-            font-size: 20px;
-            font-weight: bold;
-            color: red;
-            text-align: center;
-        }
-        .box{
-            border-width: 3px solid;
-            width: 300px;
-            height: 340px;
-            border: double black;
-            
-        }
+
         </style>
   </head>
   <body>
     
-     {{> header}}<br><br>
+      <body class="d-flex flex-column h-100">
     
+<header>
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Sherullah il Moazzam 1444H</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/login">User Login</a>
+          </li>
+        
+        
+        
+      </div>
+    </div>
+  </nav>
+</header>
+<main class="flex-shrink-0 mt-5 vertical-center d-flex justify-content-center align-item-center w-100" style="height:90vh">
     <center>
-        <h1 class="text-success"> Admin Panel</h1>
-    <div class ="box">
-  
+        
+    <div class ="container bg-dark text-white  p-2 m-auto mt-5 " style="height:350px;width:350px">
+        <h1 class="text-success mt-2"> Admin Panel</h1>
 
 	<form action="/admin/login" method="post">
   	<br>
@@ -52,15 +63,21 @@
   	<br>
   	&nbsp;&nbsp;&nbsp;<input type="text" name="sabeel" style="font-size:16pt;height:30px" placeholder="password"  required><br><br><br><br>
 
-  	<center><input type="submit"  style="font-size:20px;width: 270px; height: 50px; color:white;background-color:blue" value="Submit"></center>
+  	<center><input type="submit" class="btn btn-info" value="Submit"></center>
       
       <h3 style="color:red;"> {{message}} </h3>
 </form>
 </div>
  
 </center>
-  <footer class="bg-success d-flex flex-column justify-content-center w-100 align-items-center text-white ">
+</main>
+  {{!-- <footer class="bg-success d-flex flex-column justify-content-center w-100 align-items-center text-white ">
    <p>Powered by:-</p> <p>Toloba-ul-Kulliyat-ul-Mumeneen-Noorani Nagar</p>
-  </footer>
+  </footer> --}}
+  <footer class="footer w-100 bg-dark flex-column justify-content-center w-100 align-items-center text-white fixed-bottom" style="display:flex;">
+  
+   <p>Powered by:-</p> <p>Toloba-ul-Kulliyat-ul-Mumeneen-Noorani Nagar</p>  
+  
+</footer>
   </body>
 </html>
