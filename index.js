@@ -286,10 +286,9 @@ app.post('/admin/panel', async (req, res) => {
     let events = schema.events;
     let event = await events.find({
       available: true
-    })
-   
+    }).sort({serial:1});   
 
-    if (data.length==0) {
+ if (data.length==0) {
       res.render('adminpanel', { message: [], layout: false });
       
     }
