@@ -597,6 +597,14 @@ res.status(200).json({
 })
 })
 
+app.post("/register",async(req,res)=>{
+  
+  let users = schema.users;
+  let user=await users.create(req.body);
+  console.log(user);
+  res.render('adminpanel',{message:[],layout:false})
+})
+
 // db.student.find().sort({age:-1})
 mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {

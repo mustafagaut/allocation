@@ -31,11 +31,11 @@ let user = new Schema({
     },
     Age: {
         type: String,
-        required: true,
+        default:"not known",
     },
     Gender: {
         type: String,
-        required: true,
+        default: "Male",
     },
     Misaq: {
         type: String,
@@ -48,7 +48,6 @@ let user = new Schema({
     },
     Sabeel: {
         type: String,
-        required: true,
     },
     Mobile: {
         type: String,
