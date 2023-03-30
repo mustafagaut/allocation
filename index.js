@@ -99,7 +99,7 @@ app.post('/addUser', (req, res) => {
       console.log("New data added");
     });
 
-
+console.warn("commit");
   }
 });
 
