@@ -218,6 +218,33 @@ app.get('/admin/login', (req, res) => {
 
 
 });
+app.get('/viewer/login', (req, res) => {
+  res.render('viewerlogin', { message: "", layout: false });
+
+});
+
+app.post('/viewer/login', async (req, res) => {
+  let username = req.body.its;
+  let password = req.body.sabeel;
+  let users = schema.users;
+  let user = await users.find({
+    ITS_ID: username
+  });
+
+  if (!user) {
+    res.render('adminlogin', { message: " Invalid username or password", layout: false });
+  } else {
+    if (user[0].Mobile == "viewer" && user[0].Sabeel == password) {
+      req.session.user = user[0];
+
+      res.redirect("/viewer/list");
+    }
+    else {
+      res.render('adminlogin', { message: "Invalid username or password", layout: false });
+    }
+  }
+})
+
 app.post('/admin/login', async (req, res) => {
   let username = req.body.its;
   let password = req.body.sabeel;
