@@ -464,12 +464,7 @@ app.get('/admin/list', async (req, res) => {
 })
 app.get('/viewer/list', async (req, res) => {
  
-  if (req.session.user === undefined) {
-    res.redirect("/login")
-  }
-  else if (req.session.user.Mobile !== "viewer") {
-    res.redirect('/login');
-  } else {
+ 
 
     let allocation = schema.allocation;
     let list = await allocation.find({}).sort({serial:1});
@@ -494,7 +489,7 @@ app.get('/viewer/list', async (req, res) => {
 
     }
     res.render("razalist", { data: data, layout: false });
-  }
+  
 })
 app.get('/razalist',async(req,res)=>{
   let allocation = schema.allocation;
