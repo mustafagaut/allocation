@@ -317,7 +317,7 @@ app.post('/admin/panel', async (req, res) => {
 
     console.log(req.session.user,"here============>318");
     let user=req.session.user;
-    if(user && user.AzanRazaAllowed==false){
+    if(user && user.AzanRazaAllowed==true){
       console.log(user.AzanRazaAllowed,"321")
       event=event.filter(eve=>{
         if(eve.event.includes("Raat Magrib Azan"))
