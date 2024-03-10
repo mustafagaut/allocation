@@ -313,9 +313,30 @@ app.post('/admin/panel', async (req, res) => {
     let events = schema.events;
     let event = await events.find({
       available: true
-    }).sort({serial:1});   
+    }).sort({serial:1});  
 
- if (data.length==0) {
+    console.log(req.session.user,"here============>318");
+    let user=req.session.user;
+    if(user && user.AzanRazaAllowed==false){
+      console.log(user.AzanRazaAllowed,"321")
+      event=event.filter(eve=>{
+        if(eve.event.includes("Raat Magrib Azan"))
+          return true;
+        else
+          return false;
+      });
+    }else{
+      console.log("328 else")
+      event=event.filter(eve=>{
+        if(eve.event.includes("Raat Magrib Azan"))
+          return false;
+        else
+          return true;
+      });
+    }
+  
+
+ if (data.length==0 && event.length==0) {
       res.render('adminpanel', { message: [], layout: false });
       
     }
@@ -324,12 +345,14 @@ app.post('/admin/panel', async (req, res) => {
     }
   }
 })
+filterEvent=(event)=>{
+  return event;
+}
 function read_users(data, event) {
 
   poems_dict = [];
   let e = read_event(event);
   
-  console.log(data.length);
   for (let i = 0; i < data.length; i++) {
     let all=[];
     if(data[i].allocated.length>=0){
@@ -464,7 +487,12 @@ app.get('/admin/list', async (req, res) => {
 })
 app.get('/viewer/list', async (req, res) => {
  
- 
+  if (req.session.user === undefined) {
+    res.redirect("/login")
+  }
+  else if (req.session.user.Mobile !== "viewer") {
+    res.redirect('/login');
+  } else {
 
     let allocation = schema.allocation;
     let list = await allocation.find({}).sort({serial:1});
@@ -489,7 +517,7 @@ app.get('/viewer/list', async (req, res) => {
 
     }
     res.render("razalist", { data: data, layout: false });
-  
+  }
 })
 app.get('/razalist',async(req,res)=>{
   let allocation = schema.allocation;
