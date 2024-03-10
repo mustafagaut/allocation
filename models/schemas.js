@@ -41,7 +41,11 @@ let user = new Schema({
         type: String,
         required: true,
     },
+    AzanRazaAllowed:{
+        type:String,
+        default:false
 
+    },
     Full_Name: {
         type: String,
         required: true,
