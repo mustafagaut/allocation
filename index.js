@@ -320,7 +320,7 @@ app.post('/admin/panel', async (req, res) => {
     if(user && user.AzanRazaAllowed=="true"){
       console.log(user.AzanRazaAllowed,"321")
       event=event.filter(eve=>{
-        if(eve.event.includes("Raat Magrib Azan"))
+        if(eve.event.includes("Magrib Azan"))
           return true;
         else
           return false;
@@ -328,7 +328,7 @@ app.post('/admin/panel', async (req, res) => {
     }else{
       console.log("328 else")
       event=event.filter(eve=>{
-        if(eve.event.includes("Raat Magrib Azan"))
+        if(eve.event.includes("Magrib Azan"))
           return false;
         else
           return true;
