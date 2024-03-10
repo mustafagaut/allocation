@@ -317,23 +317,23 @@ app.post('/admin/panel', async (req, res) => {
 
     console.log(req.session.user,"here============>318");
     let user=req.session.user;
-    if(user && user.AzanRazaAllowed=="true"){
-      console.log(user.AzanRazaAllowed,"321")
-      event=event.filter(eve=>{
-        if(eve.event.includes("Magrib Azan"))
-          return true;
-        else
-          return false;
-      });
-    }else{
-      console.log("328 else")
-      event=event.filter(eve=>{
-        if(eve.event.includes("Magrib Azan"))
-          return false;
-        else
-          return true;
-      });
-    }
+    // if(user && user.AzanRazaAllowed=="true"){
+    //   console.log(user.AzanRazaAllowed,"321")
+    //   event=event.filter(eve=>{
+    //     if(eve.event.includes("Magrib Azan"))
+    //       return true;
+    //     else
+    //       return false;
+    //   });
+    // }else{
+    //   console.log("328 else")
+    //   event=event.filter(eve=>{
+    //     if(eve.event.includes("Magrib Azan"))
+    //       return false;
+    //     else
+    //       return true;
+    //   });
+    // }
   
 
  if (data.length==0 && event.length==0) {
